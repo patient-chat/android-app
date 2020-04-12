@@ -34,7 +34,7 @@
 
         <action
             android:id="@+id/action_PatientListFragment_to_WelcomeFragment"
-            app:destination="@id/AddPatientFragment" />
+            app:destination="@id/WelcomeFragment" />
         <action
             android:id="@+id/action_PatientListFragment_to_AddPatient"
             app:destination="@id/AddPatientFragment" />

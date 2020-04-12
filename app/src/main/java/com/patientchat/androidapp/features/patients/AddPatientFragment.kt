@@ -28,7 +28,6 @@ class AddPatientFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_patient, container, false)
     }
 
@@ -46,23 +45,5 @@ class AddPatientFragment : Fragment() {
                     .setAction("Action", null).show()
             }
         }
-
-//        val button = findViewById<Button>(R.id.button_save)
-//        button.setOnClickListener {
-//            val replyIntent = Intent()
-//            if (TextUtils.isEmpty(editWordView.text)) {
-//                setResult(Activity.RESULT_CANCELED, replyIntent)
-//            } else {
-//                val word = editWordView.text.toString()
-//                replyIntent.putExtra(EXTRA_REPLY, word)
-//                setResult(Activity.RESULT_OK, replyIntent)
-//            }
-//            finish()
-//        }
-//    }
-//
-//    companion object {
-//        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
-//    }
     }
 }

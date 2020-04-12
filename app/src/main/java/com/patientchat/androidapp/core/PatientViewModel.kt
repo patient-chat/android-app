@@ -22,4 +22,8 @@ class PatientViewModel(application: Application) : AndroidViewModel(application)
     fun insert(patient: Patient) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(patient)
     }
+
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteAll()
+    }
 }

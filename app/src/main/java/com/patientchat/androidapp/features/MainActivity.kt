@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         patientViewModel = ViewModelProvider(this).get(PatientViewModel::class.java)
-        patientViewModel.allPatients.observe(this, Observer { patients ->
-
-//            patients?.let { adapter.setPatients(it) }
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -34,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_clear_patients -> {
+                patientViewModel.deleteAll()
+                true
+            }
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }

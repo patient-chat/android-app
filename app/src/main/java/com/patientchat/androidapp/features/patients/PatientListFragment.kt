@@ -18,11 +18,6 @@ class PatientListFragment : Fragment() {
 
     private val patientViewModel: PatientViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +34,11 @@ class PatientListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         patientViewModel.allPatients.observe(viewLifecycleOwner, Observer { patients ->
             patients?.let {
-                adapter.setPatients(it) }
+                if (it.isEmpty()) {
+                    findNavController().navigate(R.id.action_PatientListFragment_to_WelcomeFragment)
+                }
+                adapter.setPatients(it)
+            }
         })
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {

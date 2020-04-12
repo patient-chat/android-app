@@ -10,4 +10,8 @@ class PatientRepository(private val patientDoa: PatientDoa) {
     suspend fun insert(patient: Patient) {
         patientDoa.insert(patient)
     }
+
+    suspend fun deleteAll() {
+        patientDoa.deleteAll()
+    }
 }

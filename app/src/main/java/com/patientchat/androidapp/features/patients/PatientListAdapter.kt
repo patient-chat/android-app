@@ -14,7 +14,7 @@ class PatientListAdapter internal constructor(
 ) : RecyclerView.Adapter<PatientListAdapter.PatientViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var patients = emptyList<Patient>() // Cached copy of words
+    private var patients = emptyList<Patient>() // Cached copy of patients
 
     inner class PatientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val wordItemView: TextView = itemView.findViewById(R.id.textView_name)

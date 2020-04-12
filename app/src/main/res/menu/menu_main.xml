@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.patientchat.androidapp.features.MainActivity">
     <item
+        android:id="@+id/action_clear_patients"
+        android:orderInCategory="100"
+        android:title="@string/action_clear_patients"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
