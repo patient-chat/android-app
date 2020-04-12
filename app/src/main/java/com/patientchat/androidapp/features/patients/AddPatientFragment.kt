@@ -6,8 +6,10 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.patientchat.androidapp.R
@@ -45,11 +47,9 @@ class AddPatientFragment : Fragment() {
                 var patient = Patient.create(patientName)
                 patientViewModel.insert(patient)
 
-//                val bundle = Bundle()
-//                bundle.putParcelable("patient", patient)
-//                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment, patient)
-                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientDetailFragment)
-//                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment)
+                view.findNavController().navigate(
+                    R.id.action_AddPatientFragment_to_PatientDetailFragment,
+                    PatientDetailFragment.createBundle(patient))
             } else {
                 Snackbar.make(view, "TODO: Add error handling", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
