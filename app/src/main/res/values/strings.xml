@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Patient Chat</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="welcome_fragment_label">Welcome Fragment</string>
+    <string name="add_patient_fragment_label">Add Patient Fragment</string>
+
+    <!--    Welcome fragment-->
+    <string name="hello_first_fragment">Welcome to Patient Chat.</string>
+    <string name="add_first_patient">Add First Patient</string>
+
+    <!--    Add Patient fragment-->
+    <string name="hello_second_fragment">Add your patient now.</string>
+    <string name="patient_name_hint">Patient Name</string>
+    <string name="next">Next</string>
+
+</resources>
