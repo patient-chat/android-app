@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patientchat.androidapp.R
 import com.patientchat.androidapp.core.db.Patient
 
-class PatientListAdapter internal constructor(context: Context)
-    : RecyclerView.Adapter<PatientListAdapter.PatientViewHolder>() {
+class PatientListAdapter internal constructor(
+    context: Context
+) : RecyclerView.Adapter<PatientListAdapter.PatientViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var patients = listOf<Patient>(Patient.create("Smith"))
-//    private var patients = emptyList<Patient>()
+    private var patients = emptyList<Patient>() // Cached copy of words
 
     inner class PatientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val patientItemView: TextView = itemView.findViewById(R.id.textView_name)
+        val wordItemView: TextView = itemView.findViewById(R.id.textView_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
@@ -25,17 +25,15 @@ class PatientListAdapter internal constructor(context: Context)
         return PatientViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int {
-        patients.size
-    }
-
     override fun onBindViewHolder(holder: PatientViewHolder, position: Int) {
         val current = patients[position]
-        holder.patientItemView.text = current.name
+        holder.wordItemView.text = current.name
     }
 
-    internal fun setPatients(patients: List<Patient>) {
-        this.patients = patients
+    internal fun setPatients(words: List<Patient>) {
+        this.patients = words
         notifyDataSetChanged()
     }
+
+    override fun getItemCount() = patients.size
 }

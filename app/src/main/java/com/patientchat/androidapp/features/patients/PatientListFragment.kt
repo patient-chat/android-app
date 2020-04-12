@@ -4,21 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.patientchat.androidapp.R
 import com.patientchat.androidapp.core.PatientViewModel
-import com.patientchat.androidapp.core.db.Patient
-import kotlinx.android.synthetic.main.fragment_add_patient.*
-import kotlinx.android.synthetic.main.fragment_patient_list.*
 
 class PatientListFragment : Fragment() {
 
