@@ -44,7 +44,12 @@ class AddPatientFragment : Fragment() {
             if (patientName.isNotEmpty()) {
                 var patient = Patient.create(patientName)
                 patientViewModel.insert(patient)
-                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment)
+
+//                val bundle = Bundle()
+//                bundle.putParcelable("patient", patient)
+//                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment, patient)
+                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientDetailFragment)
+//                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment)
             } else {
                 Snackbar.make(view, "TODO: Add error handling", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()

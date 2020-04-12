@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/PatientListFragment">
-<!--    app:startDestination="@id/WelcomeFragment">-->
 
     <fragment
         android:id="@+id/WelcomeFragment"
@@ -25,6 +24,9 @@
         <action
             android:id="@+id/action_AddPatientFragment_to_PatientListFragment"
             app:destination="@id/PatientListFragment" />
+        <action
+            android:id="@+id/action_AddPatientFragment_to_PatientDetailFragment"
+            app:destination="@id/PatientDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/PatientListFragment"
@@ -38,5 +40,15 @@
         <action
             android:id="@+id/action_PatientListFragment_to_AddPatient"
             app:destination="@id/AddPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PatientDetailFragment"
+        android:name="com.patientchat.androidapp.features.patients.PatientDetailFragment"
+        android:label="@string/patient_detail_fragment_label"
+        tools:layout="@layout/fragment_add_patient">
+
+        <action
+            android:id="@+id/action_PatientDetailFragment_to_PatientListFragment"
+            app:destination="@id/PatientListFragment" />
     </fragment>
 </navigation>
