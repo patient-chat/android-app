@@ -1,6 +1,6 @@
 package com.patientchat.androidapp
 
-import com.patientchat.androidapp.db.Patient
+import com.patientchat.androidapp.core.db.Patient
 import org.junit.Test
 
 import org.junit.Assert.*

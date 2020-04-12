@@ -1,37 +1,38 @@
-package com.patientchat.androidapp
+package com.patientchat.androidapp.features
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.patientchat.androidapp.R
+import com.patientchat.androidapp.core.PatientViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var patientViewModel: PatientViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        // todo: show fab if 1+ patient
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "TODO: Add new patient", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
+        patientViewModel = ViewModelProvider(this).get(PatientViewModel::class.java)
+        patientViewModel.allPatients.observe(this, Observer { patients ->
+
+//            patients?.let { adapter.setPatients(it) }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)

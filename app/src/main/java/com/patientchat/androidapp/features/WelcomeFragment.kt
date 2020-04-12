@@ -1,4 +1,4 @@
-package com.patientchat.androidapp
+package com.patientchat.androidapp.features
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.patientchat.androidapp.R
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -25,7 +26,7 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_WelcomeFragment_to_AddPatientFragment)
         }
     }
 }

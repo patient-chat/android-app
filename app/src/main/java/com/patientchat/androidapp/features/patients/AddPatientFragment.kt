@@ -1,21 +1,28 @@
-package com.patientchat.androidapp
+package com.patientchat.androidapp.features.patients
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.patientchat.androidapp.db.Patient
-import kotlinx.android.synthetic.*
+import com.patientchat.androidapp.R
+import com.patientchat.androidapp.core.PatientViewModel
+import com.patientchat.androidapp.core.db.Patient
 import kotlinx.android.synthetic.main.fragment_add_patient.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class AddPatientFragment : Fragment() {
+
+    private val patientViewModel: PatientViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +39,30 @@ class AddPatientFragment : Fragment() {
             var patientName = edittext_patient_name.text.toString()
             if (patientName.isNotEmpty()) {
                 var patient = Patient.create(patientName)
-                Snackbar.make(view, patient.name+" created", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-
+                patientViewModel.insert(patient)
+                findNavController().navigate(R.id.action_AddPatientFragment_to_PatientListFragment)
             } else {
                 Snackbar.make(view, "TODO: Add error handling", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             }
-            //findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+
+//        val button = findViewById<Button>(R.id.button_save)
+//        button.setOnClickListener {
+//            val replyIntent = Intent()
+//            if (TextUtils.isEmpty(editWordView.text)) {
+//                setResult(Activity.RESULT_CANCELED, replyIntent)
+//            } else {
+//                val word = editWordView.text.toString()
+//                replyIntent.putExtra(EXTRA_REPLY, word)
+//                setResult(Activity.RESULT_OK, replyIntent)
+//            }
+//            finish()
+//        }
+//    }
+//
+//    companion object {
+//        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+//    }
     }
 }

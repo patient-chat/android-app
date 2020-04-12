@@ -3,26 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/PatientListFragment">
+<!--    app:startDestination="@id/WelcomeFragment">-->
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.patientchat.androidapp.WelcomeFragment"
+        android:id="@+id/WelcomeFragment"
+        android:name="com.patientchat.androidapp.features.WelcomeFragment"
         android:label="@string/welcome_fragment_label"
         tools:layout="@layout/fragment_welcome">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_WelcomeFragment_to_AddPatientFragment"
+            app:destination="@id/AddPatientFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.patientchat.androidapp.AddPatientFragment"
+        android:id="@+id/AddPatientFragment"
+        android:name="com.patientchat.androidapp.features.patients.AddPatientFragment"
         android:label="@string/add_patient_fragment_label"
         tools:layout="@layout/fragment_add_patient">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_AddPatientFragment_to_PatientListFragment"
+            app:destination="@id/PatientListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PatientListFragment"
+        android:name="com.patientchat.androidapp.features.patients.PatientListFragment"
+        android:label="@string/patient_list_fragment_label"
+        tools:layout="@layout/fragment_patient_list">
+
+        <action
+            android:id="@+id/action_PatientListFragment_to_WelcomeFragment"
+            app:destination="@id/AddPatientFragment" />
+        <action
+            android:id="@+id/action_PatientListFragment_to_AddPatient"
+            app:destination="@id/AddPatientFragment" />
     </fragment>
 </navigation>
