@@ -1,18 +1,23 @@
 <resources>
     <string name="app_name">Patient Chat</string>
+    <string name="action_clear_patients">Clear Patients</string>
     <string name="action_settings">Settings</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="welcome_fragment_label">Welcome Fragment</string>
     <string name="add_patient_fragment_label">Add Patient Fragment</string>
+    <string name="patient_list_fragment_label">Patient List Fragment</string>
 
-    <!--    Welcome fragment-->
-    <string name="hello_first_fragment">Welcome to Patient Chat.</string>
+    <!--    Welcome fragment  -->
+    <string name="hello_welcome_fragment">Welcome to Patient Chat.</string>
     <string name="add_first_patient">Add First Patient</string>
 
-    <!--    Add Patient fragment-->
-    <string name="hello_second_fragment">Add your patient now.</string>
+    <!--    Add Patient fragment  -->
+    <string name="hello_add_patient_fragment">Add your patient now.</string>
     <string name="patient_name_hint">Patient Name</string>
     <string name="next">Next</string>
+
+    <!--    List fragment  -->
+    <string name="add_patient">Add Patient</string>
 
 </resources>
