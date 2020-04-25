@@ -8,6 +8,9 @@
     <string name="add_patient_fragment_label">Add Patient Fragment</string>
     <string name="patient_list_fragment_label">Patient List Fragment</string>
     <string name="patient_detail_fragment_label">Patient Detail Fragment</string>
+    <string name="video_chat_activity_label">Video Chat Activity</string>
+    <string name="hotspot_fragment_label">Hotspot Fragment</string>
+    <string name="request_permissions_fragment_label">Request Permissions Fragment</string>
 
     <!--    Welcome fragment  -->
     <string name="hello_welcome_fragment">Welcome to Patient Chat.</string>
@@ -24,5 +27,18 @@
 
     <!--    List fragment  -->
     <string name="add_patient">Add Patient</string>
+
+    <!--    Video chat activity & fragment-->
+    <string name="title_activity_video_chat">VideoChatActivity</string>
+    <string name="hotspot_down">Hotspot Off</string>
+    <string name="hotspot_active">Hotspot On</string>
+    <string name="server_active">Start On</string>
+    <string name="server_down">Stop Off</string>
+    <string name="patient_connected">%1$s is connected</string>
+    <string name="patient_disconnected">No one is connected</string>
+    <string name="server_preview">Preview of %1$s</string>
+    <string name="os_update_needed">To turn on a WiFi Hotspot, Oreo (API 26) is required. Please update your OS.</string>
+    <string name="why_permissions">To start a local hotspot, the OS requires that you grant permissions to Change WIFI Settings and to access Fine Location.</string>
+    <string name="ask_me_again">Ask me again.</string>
 
 </resources>

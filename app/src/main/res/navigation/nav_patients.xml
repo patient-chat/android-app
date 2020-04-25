@@ -53,5 +53,19 @@
         <action
             android:id="@+id/action_PatientDetailFragment_to_PatientListFragment"
             app:destination="@id/PatientListFragment" />
+        <action
+            android:id="@+id/action_PatientDetailFragment_to_VideoChatActivity"
+            app:destination="@id/VideoChatActivity" />
     </fragment>
+    <activity
+        android:id="@+id/VideoChatActivity"
+        android:name="com.patientchat.androidapp.features.hotspot.VideoChatActivity"
+        android:label="@string/video_chat_activity_label"
+        tools:layout="@layout/activity_video_chat">
+
+<!--        <argument-->
+<!--            android:name="patient"-->
+<!--            app:argType="com.patientchat.androidapp.core.db.Patient" />-->
+
+    </activity>
 </navigation>

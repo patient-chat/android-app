@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.patientchat.androidapp.R
@@ -16,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_patient_detail.*
 class PatientDetailFragment : Fragment() {
 
     companion object {
-        private val patientKey = "patient"
+        val ARG_PATIENT = "patient"
 
         fun createBundle(patient: Patient): Bundle {
-            return bundleOf(patientKey to patient)
+            return bundleOf(ARG_PATIENT to patient)
         }
     }
 
@@ -33,7 +34,7 @@ class PatientDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val patient: Patient? = arguments?.getParcelable(patientKey)
+        val patient: Patient? = arguments?.getParcelable(ARG_PATIENT)
         if (patient == null) {
             //TODO
         } else {
@@ -47,8 +48,12 @@ class PatientDetailFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.button_chat).setOnClickListener {
-            Snackbar.make(view, "TBD!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            if (patient != null) {
+                findNavController().navigate(
+                    R.id.action_PatientDetailFragment_to_VideoChatActivity,
+                    createBundle(patient)
+                )
+            }
         }
     }
 }

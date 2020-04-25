@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_video_chat"
+    app:startDestination="@id/RequestPermissionsFragment">
+
+    <fragment
+        android:id="@+id/RequestPermissionsFragment"
+        android:name="com.patientchat.androidapp.features.hotspot.RequestPermissionsFragment"
+        android:label="@string/request_permissions_fragment_label"
+        tools:layout="@layout/fragment_request_permissions">
+
+        <action
+            android:id="@+id/action_RequestPermissionsFragment_to_HotspotFragment"
+            app:destination="@id/HotspotFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/HotspotFragment"
+        android:name="com.patientchat.androidapp.features.hotspot.HotspotFragment"
+        android:label="@string/hotspot_fragment_label"
+        tools:layout="@layout/fragment_hotspot">
+    </fragment>
+</navigation>
