@@ -35,10 +35,9 @@ class PatientListFragment : Fragment(), PatientItemClickListener {
         recyclerView.layoutManager = LinearLayoutManager(context)
         patientViewModel.allPatients.observe(viewLifecycleOwner, Observer { patients ->
             patients?.let {
-                if (it.isEmpty()) {
-                    findNavController().navigate(R.id.action_PatientListFragment_to_WelcomeFragment)
-                }
-                adapter.setPatients(it)
+                var list = ArrayList<Patient>(1)
+                list.add(it)
+                adapter.setPatients(list)
             }
         })
 

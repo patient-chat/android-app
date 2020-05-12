@@ -9,8 +9,8 @@ import androidx.room.Query
 @Dao
 interface PatientDoa {
 
-    @Query("SELECT * from patient_table ORDER BY name ASC")
-    fun getAlphabetizedWords(): LiveData<List<Patient>>
+    @Query("SELECT * from patient_table ORDER BY name ASC LIMIT 1")
+    fun getAlphabetizedWords(): LiveData<Patient>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(word: Patient)

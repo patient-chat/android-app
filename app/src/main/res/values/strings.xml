@@ -32,11 +32,12 @@
     <string name="title_activity_video_chat">VideoChatActivity</string>
     <string name="hotspot_down">Hotspot Off</string>
     <string name="hotspot_active">Hotspot On</string>
-    <string name="server_active">Start On</string>
-    <string name="server_down">Stop Off</string>
+    <string name="server_active">Server On</string>
+    <string name="server_down">Server Off</string>
     <string name="patient_connected">%1$s is connected</string>
     <string name="patient_disconnected">No one is connected</string>
-    <string name="server_preview">Preview of %1$s</string>
+    <string name="server_details">In your browser, go to:\n  http://%1$s:%2$d</string>
+    <string name="hotspot_details">Connect to WiFi Network:\nSSID: %1$s \npassword: %2$s</string>
     <string name="os_update_needed">To turn on a WiFi Hotspot, Oreo (API 26) is required. Please update your OS.</string>
     <string name="why_permissions">To start a local hotspot, the OS requires that you grant permissions to Change WIFI Settings and to access Fine Location.</string>
     <string name="ask_me_again">Ask me again.</string>

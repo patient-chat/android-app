@@ -12,16 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hotspot_down"
-        app:layout_constraintBottom_toTopOf="@id/textview_webview_title"
+        app:layout_constraintBottom_toTopOf="@id/textview_server_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview_webview_title"
+        android:id="@+id/textview_server_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/server_preview"
+        android:text="@string/server_details"
         app:layout_constraintBottom_toTopOf="@id/webview_preview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toTopOf="@id/button_server"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textview_webview_title" />
+        app:layout_constraintTop_toTopOf="@id/textview_server_details" />
 
     <TextView
         android:id="@+id/textview_patient_connected"

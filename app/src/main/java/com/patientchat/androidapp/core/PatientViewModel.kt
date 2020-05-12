@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class PatientViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PatientRepository
-    val allPatients: LiveData<List<Patient>>
+    val allPatients: LiveData<Patient>
 
     init {
         val patientDoa = PatientChatDatabase.getDatabase(application).patientDao()

@@ -7,20 +7,25 @@ import android.net.wifi.WifiManager.LocalOnlyHotspotReservation
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.patientchat.androidapp.R
 import com.patientchat.androidapp.core.db.Patient
+import com.patientchat.androidapp.core.server.LocalWebServer
 import kotlinx.android.synthetic.main.fragment_hotspot.*
 
 class HotspotFragment : Fragment() {
 
     private var mReservation: WifiManager.LocalOnlyHotspotReservation? = null
+    private var mServer: LocalWebServer? = null
+    private val DEFAULT_PORT = 8080
+    private var mHotspotUp = false
+    private var mServerUp = false
 
     companion object {
         private val ARG_PATIENT = "patient"
@@ -53,43 +58,72 @@ class HotspotFragment : Fragment() {
         }
 
         // hook up button listeners
+        button_hotspot.setOnClickListener {
+            if (mHotspotUp) {
+                takedownLocalHotspot()
+            } else {
+                startLocalHotspot()
+            }
+        }
+
+        button_server.setOnClickListener {
+            if (mServerUp) {
+                takedownServer()
+            } else {
+                startServer()
+            }
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        takedownServer()
+        takedownLocalHotspot()
     }
 
     private fun onHotspotConnectedUpdateUI(hotspotName: String?, hotspotPassword: String?) {
-        textview_hotspot_details.text = hotspotName+"\n"+hotspotPassword
+        mHotspotUp = true
+        textview_hotspot_details.text = getString(R.string.hotspot_details, hotspotName, hotspotPassword)
         button_hotspot.text = getString(R.string.hotspot_active)
         button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOn))
     }
 
     private fun onHotspotDisconnectedUpdateUI(error: String? = null) {
+        mHotspotUp = false
         textview_hotspot_details.text = error ?: ""
         button_hotspot.text = getString(R.string.hotspot_down)
         button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOff))
     }
 
-    private fun onServerConnectedUpdateUI(url: String) {
+    private fun onServerConnectedUpdateUI(url: String, ipAddress: String, port: Int) {
+        mServerUp = true
         webview_preview.loadUrl(url)
-        button_hotspot.text = getString(R.string.server_active)
-        button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOn))
+        textview_server_details.text = getString(R.string.server_details, ipAddress, port)
+        button_server.text = getString(R.string.server_active)
+        button_server.setBackgroundColor(resources.getColor(R.color.colorOn))
     }
 
     private fun onServerDisconnectedUpdateUI() {
+        mServerUp = false
         webview_preview.loadUrl("")
-        button_hotspot.text = getString(R.string.server_down)
-        button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOff))
+        button_server.text = getString(R.string.server_down)
+        button_server.setBackgroundColor(resources.getColor(R.color.colorOff))
     }
 
     private fun startLocalHotspot() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && activity != null) {
             var manager = activity!!.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager //TODO: Is this safe? Is there a better way?
+
+            // TODO set hotspot ssid & preSharedKey programattically without reflection (http://www.programmersought.com/article/4227986029/)
             manager.startLocalOnlyHotspot(object : LocalOnlyHotspotCallback() {
                 override fun onStarted(reservation: LocalOnlyHotspotReservation) {
                     super.onStarted(reservation)
                     mReservation = reservation
                     if (mReservation != null) {
-                        startServer()
                         val wifiConfig = mReservation?.wifiConfiguration
                         onHotspotConnectedUpdateUI(wifiConfig?.SSID, wifiConfig?.preSharedKey)
+                        startServer()
                     }
                 }
 
@@ -111,21 +145,31 @@ class HotspotFragment : Fragment() {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private fun takedownLocalHotspot() {
-        mReservation?.close()
-        onHotspotDisconnectedUpdateUI()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && activity != null) {
+            mReservation?.close()
+            onHotspotDisconnectedUpdateUI()
+        }
     }
 
     private fun startServer() {
-        // TODO
-        Toast.makeText(activity, "...Attempting to start server...", Toast.LENGTH_LONG).show()
-        onServerConnectedUpdateUI("https://agilemanifesto.org/")
+        try {
+            if (mServer == null) {
+                mServer = LocalWebServer(DEFAULT_PORT)
+            }
+            mServer?.start()
+
+            val wm =
+                activity?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager?
+            val ip: String = Formatter.formatIpAddress(wm!!.connectionInfo.ipAddress)
+            onServerConnectedUpdateUI("https://agilemanifesto.org/", ip, DEFAULT_PORT)
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
     }
 
     private fun takedownServer() {
-        // TODO
-        Toast.makeText(activity, "...Attempting to takedown server...", Toast.LENGTH_LONG).show()
+        mServer?.stop()
         onServerDisconnectedUpdateUI()
     }
 

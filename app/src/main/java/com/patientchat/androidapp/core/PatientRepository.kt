@@ -5,7 +5,7 @@ import com.patientchat.androidapp.core.db.Patient
 import com.patientchat.androidapp.core.db.PatientDoa
 
 class PatientRepository(private val patientDoa: PatientDoa) {
-    val allPatients: LiveData<List<Patient>> = patientDoa.getAlphabetizedWords()
+    val allPatients: LiveData<Patient> = patientDoa.getAlphabetizedWords()
 
     suspend fun insert(patient: Patient) {
         patientDoa.insert(patient)
