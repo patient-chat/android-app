@@ -16,109 +16,63 @@ import kotlinx.android.synthetic.main.activity_video_chat.*
 
 class VideoChatActivity : AppCompatActivity(), OnPermissionRequest {
 
-    private val PERMISSIONS_REQUEST_FINE_LOCATION = 65
-    private val PERMISSIONS_REQUEST_CHANGE_WIFISTATE = 66
-    private val PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE = 67
-    private val PERMISSIONS_REQUEST_ACCESS_WIFI_STATE = 68
-    private val PERMISSIONS_REQUEST_INTERNET = 69
+    private val PERMISSIONS_REQUEST = 65
+    private val mPermissionsNeeded = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.CHANGE_WIFI_STATE,
+        Manifest.permission.ACCESS_NETWORK_STATE,
+        Manifest.permission.ACCESS_WIFI_STATE,
+        Manifest.permission.INTERNET
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // The first fragment shown is the RequestPermissionsFragment, which calls checkPermissions.
+        // If permissions are granted, the hotspot fragment is started with the patient in the intent.
         setContentView(R.layout.activity_video_chat)
         setSupportActionBar(toolbar)
-
-        // this checks for permissions & if able, starts the hotspot fragment with the patient in the intent
-        checkPermissions()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            // currently only fine location has a popup dialog
-            // TODO: advise user if they need to go to settings and update CHANGE WIFI STATE
-            if (requestCode == PERMISSIONS_REQUEST_FINE_LOCATION
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED) {
-                showHotspotFragment()
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        var successes = 0;
+        var iterator = 0;
+        permissions.forEach {
+            if (grantResults[iterator] == PackageManager.PERMISSION_GRANTED) {
+                successes++
             }
+            iterator++
+        }
+        if (successes == permissions.size) {
+            showHotspotFragment()
         }
     }
 
     private fun checkPermissions() {
-        // Fine location required for starting a local hotspot
-        var fineLocationGranted = false
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.println(Log.ERROR, getString(R.string.video_chat_activity_label), "Permission not granted: ACCESS_FINE_LOCATION")
+        var permissionsNotGranted = mutableListOf<String>()
 
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST_FINE_LOCATION)
-        } else {
-            fineLocationGranted = true
+        mPermissionsNeeded.forEach { permission ->
+            if (ContextCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.println(
+                    Log.ERROR,
+                    getString(R.string.video_chat_activity_label),
+                    "Permission not granted: "+permission
+                )
+                permissionsNotGranted.add(permission)
+            }
         }
 
-        // Change Wifi state required for starting a local hotspot
-        var changeWiFiStateGranted = false
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CHANGE_WIFI_STATE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.println(Log.ERROR, getString(R.string.video_chat_activity_label), "Permission not granted: CHANGE_WIFI_STATE")
+        if (permissionsNotGranted.size > 0) {
             ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.CHANGE_WIFI_STATE), PERMISSIONS_REQUEST_CHANGE_WIFISTATE)
+                permissionsNotGranted.toTypedArray(), PERMISSIONS_REQUEST)
         } else {
-            changeWiFiStateGranted = true
-        }
-
-        // View Network state required for starting a local server
-        var accessNetworkStateGranted = false
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_NETWORK_STATE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.println(Log.ERROR, getString(R.string.video_chat_activity_label), "Permission not granted: ACCESS_NETWORK_STATE")
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_NETWORK_STATE), PERMISSIONS_REQUEST_ACCESS_NETWORK_STATE)
-        } else {
-            accessNetworkStateGranted = true
-        }
-
-        // View Wifi state required for starting a local server
-        var accessWiFiStateGranted = false
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_WIFI_STATE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.println(Log.ERROR, getString(R.string.video_chat_activity_label), "Permission not granted: ACCESS_WIFI_STATE")
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_WIFI_STATE), PERMISSIONS_REQUEST_ACCESS_WIFI_STATE)
-        } else {
-            accessWiFiStateGranted = true
-        }
-
-        // Internet required for starting a local server
-        var internetGranted = false
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.INTERNET
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.println(Log.ERROR, getString(R.string.video_chat_activity_label), "Permission not granted: INTERNET")
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.INTERNET), PERMISSIONS_REQUEST_INTERNET)
-        } else {
-            internetGranted = true
-        }
-
-        // if all permissions are granted, show Hotspot Fragment
-        if (fineLocationGranted && changeWiFiStateGranted && accessWiFiStateGranted && internetGranted) {
             showHotspotFragment()
         }
     }

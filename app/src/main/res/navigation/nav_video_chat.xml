@@ -13,7 +13,7 @@
 
         <action
             android:id="@+id/action_RequestPermissionsFragment_to_HotspotFragment"
-            app:destination="@id/HotspotFragment" />
+            app:destination="@id/HotspotFragment"/>
     </fragment>
 
     <fragment

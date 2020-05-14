@@ -39,7 +39,6 @@ class HotspotFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_hotspot, container, false)
     }
 
@@ -91,9 +90,11 @@ class HotspotFragment : Fragment() {
 
     private fun onHotspotDisconnectedUpdateUI(error: String? = null) {
         mHotspotUp = false
-        textview_hotspot_details.text = error ?: ""
-        button_hotspot.text = getString(R.string.hotspot_down)
-        button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOff))
+        if (textview_hotspot_details != null) {
+            textview_hotspot_details.text = error ?: ""
+            button_hotspot.text = getString(R.string.hotspot_down)
+            button_hotspot.setBackgroundColor(resources.getColor(R.color.colorOff))
+        }
     }
 
     private fun onServerConnectedUpdateUI(url: String, ipAddress: String, port: Int) {
@@ -106,9 +107,11 @@ class HotspotFragment : Fragment() {
 
     private fun onServerDisconnectedUpdateUI() {
         mServerUp = false
-        webview_preview.loadUrl("")
-        button_server.text = getString(R.string.server_down)
-        button_server.setBackgroundColor(resources.getColor(R.color.colorOff))
+        if (webview_preview != null) {
+            webview_preview.loadUrl("")
+            button_server.text = getString(R.string.server_down)
+            button_server.setBackgroundColor(resources.getColor(R.color.colorOff))
+        }
     }
 
     private fun startLocalHotspot() {

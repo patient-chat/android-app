@@ -34,6 +34,7 @@ class RequestPermissionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mListener.onPermissionRequest()
 
         view.findViewById<Button>(R.id.button_request_permissions).setOnClickListener {
             mListener.onPermissionRequest()
