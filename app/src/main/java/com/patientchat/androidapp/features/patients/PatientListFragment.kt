@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.patientchat.androidapp.R
 import com.patientchat.androidapp.core.PatientViewModel
+import com.patientchat.androidapp.core.db.Patient
 
-class PatientListFragment : Fragment() {
+class PatientListFragment : Fragment(), PatientItemClickListener {
 
     private val patientViewModel: PatientViewModel by viewModels()
 
@@ -29,7 +30,7 @@ class PatientListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_patients)
-        val adapter = PatientListAdapter(view.context) // TODO: is this the best way to pass in context?
+        val adapter = PatientListAdapter(view.context, this) // TODO: is this the best way to pass in context?
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         patientViewModel.allPatients.observe(viewLifecycleOwner, Observer { patients ->
@@ -44,6 +45,11 @@ class PatientListFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             findNavController().navigate(R.id.action_PatientListFragment_to_AddPatient)
         }
+    }
+
+    override fun onPatientClick(patient: Patient) {
+        findNavController().navigate(R.id.action_PatientListFragment_to_PatientDetail,
+            PatientDetailFragment.createBundle(patient))
     }
 
 

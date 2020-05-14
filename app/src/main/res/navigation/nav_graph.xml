@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_PatientListFragment_to_AddPatient"
             app:destination="@id/AddPatientFragment" />
+        <action
+            android:id="@+id/action_PatientListFragment_to_PatientDetail"
+            app:destination="@id/PatientDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/PatientDetailFragment"
