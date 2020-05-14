@@ -74,4 +74,9 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Crash reporting
+    implementation "com.microsoft.appcenter:appcenter-analytics:${rootProject.appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${rootProject.appCenterSdkVersion}"
+
 }
